@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'core/constants/app_colors.dart';
 import 'core/constants/app_strings.dart';
-import 'core/constants/app_text_styles.dart';
 import 'features/portfolio/data/datasources/portfolio_local_data_source_impl.dart';
 import 'features/portfolio/data/repositories/portfolio_repository_impl.dart';
 import 'features/portfolio/domain/usecases/get_portfolio.dart';
@@ -17,20 +16,42 @@ class PortfolioApp extends StatelessWidget {
     final useCase = GetPortfolio(
       PortfolioRepositoryImpl(PortfolioLocalDataSourceImpl()),
     );
-    return ScreenUtilInit(
-      designSize: const Size(1440, 1024),
-      minTextAdapt: true,
-      builder: (_, _) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: AppStrings.appTitle,
-        theme: ThemeData(
-          scaffoldBackgroundColor: AppColors.background,
-          colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
-          textTheme: AppTextStyles.textTheme,
-          useMaterial3: true,
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: AppStrings.appTitle,
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: AppColors.background,
+        colorScheme: const ColorScheme.dark(
+          primary: AppColors.primary,
+          secondary: AppColors.accent,
+          surface: AppColors.surface,
+          onPrimary: AppColors.ink,
+          onSecondary: AppColors.ink,
+          onSurface: AppColors.ink,
         ),
-        home: PortfolioPage(getPortfolio: useCase),
+        textTheme: GoogleFonts.interTextTheme(ThemeData.dark().textTheme),
+        useMaterial3: true,
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            foregroundColor: AppColors.muted,
+            overlayColor: Colors.transparent,
+          ),
+        ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(
+            foregroundColor: AppColors.ink,
+            side: const BorderSide(color: AppColors.border),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+        ),
       ),
+      home: PortfolioPage(getPortfolio: useCase),
     );
   }
 }

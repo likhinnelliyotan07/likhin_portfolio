@@ -6,57 +6,206 @@ import '../../../../core/utils/app_launcher.dart';
 import '../../domain/entities/project.dart';
 import 'skill_chip.dart';
 
-class ProjectCard extends StatelessWidget {
-  const ProjectCard({super.key, required this.project, required this.width});
+class ProjectCard extends StatefulWidget {
+  const ProjectCard({
+    super.key,
+    required this.project,
+    required this.width,
+    this.featured = false,
+  });
 
   final Project project;
   final double width;
+  final bool featured;
+
+  @override
+  State<ProjectCard> createState() => _ProjectCardState();
+}
+
+class _ProjectCardState extends State<ProjectCard> {
+  bool _hovered = false;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: width,
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: AppColors.surface,
-        border: Border.all(color: AppColors.border),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(Icons.phone_iphone, color: AppColors.primary, size: 30),
-          const SizedBox(height: 14),
-          Text(project.name, style: AppTextStyles.title),
-          const SizedBox(height: 4),
-          Text(project.role, style: AppTextStyles.subtitle),
-          const SizedBox(height: 12),
-          Text(project.summary, style: AppTextStyles.body),
-          const SizedBox(height: 14),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: project.techStack
-                .map((tech) => SkillChip(label: tech))
-                .toList(),
+    return MouseRegion(
+      onEnter: (_) => setState(() => _hovered = true),
+      onExit: (_) => setState(() => _hovered = false),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        width: widget.width,
+        transform: Matrix4.translationValues(0.0, _hovered ? -4.0 : 0.0, 0.0),
+        transformAlignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: AppColors.surface,
+          borderRadius: BorderRadius.circular(22),
+          border: Border.all(
+            color: _hovered
+                ? AppColors.primary.withValues(alpha: 0.4)
+                : AppColors.border,
           ),
-          if (project.links.isNotEmpty) ...[
-            const SizedBox(height: 16),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: project.links
-                  .map(
-                    (link) => OutlinedButton.icon(
-                      onPressed: () => AppLauncher.openUrl(link.url),
-                      icon: const Icon(Icons.open_in_new, size: 16),
-                      label: Text(link.label),
+          boxShadow: _hovered
+              ? [
+                  BoxShadow(
+                    color: AppColors.primary.withValues(alpha: 0.12),
+                    blurRadius: 36,
+                    offset: const Offset(0, 12),
+                  ),
+                ]
+              : [
+                  const BoxShadow(
+                    color: AppColors.shadow,
+                    blurRadius: 20,
+                    offset: Offset(0, 4),
+                  ),
+                ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // ── Featured header strip ─────────────────────────
+            if (widget.featured)
+              Container(
+                height: 5,
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: AppColors.primaryGradient,
+                  ),
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(22),
+                  ),
+                ),
+              ),
+            // ── Card content ───────────────────────────────────
+            Padding(
+              padding: EdgeInsets.all(widget.featured ? 24 : 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Icon
+                  Container(
+                    width: widget.featured ? 48 : 40,
+                    height: widget.featured ? 48 : 40,
+                    decoration: BoxDecoration(
+                      color: AppColors.primary.withValues(alpha: 0.12),
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                  )
-                  .toList(),
+                    child: Icon(
+                      Icons.phone_iphone_rounded,
+                      color: AppColors.primary,
+                      size: widget.featured ? 24 : 20,
+                    ),
+                  ),
+                  SizedBox(height: widget.featured ? 16 : 12),
+                  // Name
+                  Text(
+                    widget.project.name,
+                    style: AppTextStyles.title.copyWith(
+                      fontSize: widget.featured ? 20 : 16,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  // Role
+                  Text(
+                    widget.project.role,
+                    style: AppTextStyles.caption.copyWith(
+                      color: AppColors.accent,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  SizedBox(height: widget.featured ? 14 : 10),
+                  // Summary
+                  Text(
+                    widget.project.summary,
+                    style: AppTextStyles.bodySmall.copyWith(
+                      height: 1.65,
+                    ),
+                  ),
+                  const SizedBox(height: 14),
+                  // Tech stack chips
+                  Wrap(
+                    spacing: 6,
+                    runSpacing: 6,
+                    children: widget.project.techStack
+                        .map((t) => SkillChip(label: t))
+                        .toList(),
+                  ),
+                  // Links
+                  if (widget.project.links.isNotEmpty) ...[
+                    const SizedBox(height: 16),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: widget.project.links
+                          .map(
+                            (link) => _LinkButton(
+                              label: link.label,
+                              url: link.url,
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ],
+                ],
+              ),
             ),
           ],
-        ],
+        ),
+      ),
+    );
+  }
+}
+
+class _LinkButton extends StatefulWidget {
+  const _LinkButton({required this.label, required this.url});
+  final String label;
+  final String url;
+
+  @override
+  State<_LinkButton> createState() => _LinkButtonState();
+}
+
+class _LinkButtonState extends State<_LinkButton> {
+  bool _hovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => _hovered = true),
+      onExit: (_) => setState(() => _hovered = false),
+      child: GestureDetector(
+        onTap: () => AppLauncher.openUrl(widget.url),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 150),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+          decoration: BoxDecoration(
+            color: _hovered
+                ? AppColors.primary.withValues(alpha: 0.12)
+                : AppColors.transparent,
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(
+              color: _hovered ? AppColors.primary : AppColors.border,
+            ),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                Icons.open_in_new_rounded,
+                size: 13,
+                color: _hovered ? AppColors.primary : AppColors.muted,
+              ),
+              const SizedBox(width: 5),
+              Text(
+                widget.label,
+                style: AppTextStyles.caption.copyWith(
+                  color: _hovered ? AppColors.primary : AppColors.muted,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

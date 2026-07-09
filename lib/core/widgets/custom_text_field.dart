@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import '../constants/app_colors.dart';
 import '../constants/app_text_styles.dart';
 
-class CustomTextField extends StatelessWidget {
+/// Premium dark text field for contact form.
+class CustomTextField extends StatefulWidget {
   const CustomTextField({
     super.key,
     required this.controller,
@@ -16,24 +17,50 @@ class CustomTextField extends StatelessWidget {
   final int maxLines;
 
   @override
+  State<CustomTextField> createState() => _CustomTextFieldState();
+}
+
+class _CustomTextFieldState extends State<CustomTextField> {
+  bool _focused = false;
+
+  @override
   Widget build(BuildContext context) {
-    return TextField(
-      controller: controller,
-      maxLines: maxLines,
-      style: AppTextStyles.body.copyWith(color: AppColors.ink),
-      decoration: InputDecoration(
-        hintText: hint,
-        hintStyle: AppTextStyles.bodySmall,
-        filled: true,
-        fillColor: AppColors.surface,
-        enabledBorder: border(AppColors.border),
-        focusedBorder: border(AppColors.primary),
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 200),
+      decoration: BoxDecoration(
+        color: AppColors.surfaceAlt,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: _focused ? AppColors.primary : AppColors.border,
+          width: _focused ? 1.5 : 1.0,
+        ),
+        boxShadow: _focused
+            ? [
+                BoxShadow(
+                  color: AppColors.primary.withValues(alpha: 0.15),
+                  blurRadius: 12,
+                )
+              ]
+            : [],
+      ),
+      child: Focus(
+        onFocusChange: (f) => setState(() => _focused = f),
+        child: TextField(
+          controller: widget.controller,
+          maxLines: widget.maxLines,
+          style: AppTextStyles.body.copyWith(color: AppColors.ink),
+          cursorColor: AppColors.primary,
+          decoration: InputDecoration(
+            hintText: widget.hint,
+            hintStyle: AppTextStyles.body.copyWith(color: AppColors.subtle),
+            border: InputBorder.none,
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 14,
+            ),
+          ),
+        ),
       ),
     );
   }
-
-  OutlineInputBorder border(Color color) => OutlineInputBorder(
-    borderRadius: BorderRadius.circular(8),
-    borderSide: BorderSide(color: color),
-  );
 }

@@ -7,7 +7,7 @@ import '../../../../core/utils/app_launcher.dart';
 import '../../../../core/widgets/animated_section.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_text_field.dart';
-import '../../../../core/widgets/gradient_panel.dart';
+import '../../../../core/widgets/section_header.dart';
 import '../../domain/entities/contact_info.dart';
 import 'social_bar.dart';
 
@@ -21,89 +21,116 @@ class ContactSection extends StatefulWidget {
 }
 
 class _ContactSectionState extends State<ContactSection> {
-  final nameController = TextEditingController();
-  final emailController = TextEditingController();
-  final messageController = TextEditingController();
+  final _name = TextEditingController();
+  final _email = TextEditingController();
+  final _message = TextEditingController();
 
   @override
   void dispose() {
-    nameController.dispose();
-    emailController.dispose();
-    messageController.dispose();
+    _name.dispose();
+    _email.dispose();
+    _message.dispose();
     super.dispose();
   }
 
-  Future<void> send() {
-    final body =
-        'Name: ${nameController.text}\nEmail: ${emailController.text}\n\n${messageController.text}';
-    return AppLauncher.sendEmail(
-      to: widget.contact.email,
-      subject: 'Portfolio enquiry',
-      body: body,
-    );
-  }
+  Future<void> _send() => AppLauncher.sendEmail(
+        to: widget.contact.email,
+        subject: 'Portfolio enquiry from ${_name.text}',
+        body: 'Name: ${_name.text}\nEmail: ${_email.text}\n\n${_message.text}',
+      );
 
   @override
   Widget build(BuildContext context) {
     return AnimatedSection(
-      delay: 160,
-      child: GradientPanel(
-        colors: AppColors.contactGradient,
-        child: Container(
-          padding: const EdgeInsets.all(22),
-          decoration: BoxDecoration(
-            border: Border.all(color: AppColors.surface.withValues(alpha: .24)),
-            borderRadius: BorderRadius.circular(8),
+      delay: 100,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SectionHeader(
+            badge: AppStrings.badgeContact,
+            title: AppStrings.sectionContact,
+            subtitle: AppStrings.contactLead,
           ),
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              final isNarrow = constraints.maxWidth < 760;
-              final details = contactDetails();
-              final form = contactForm();
-              if (isNarrow) {
-                return Column(
+          const SizedBox(height: 48),
+          // ── Contact glass panel ─────────────────────────────
+          Container(
+            padding: const EdgeInsets.all(32),
+            decoration: BoxDecoration(
+              color: AppColors.surface,
+              borderRadius: BorderRadius.circular(24),
+              border: Border.all(color: AppColors.border),
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.primary.withValues(alpha: 0.08),
+                  blurRadius: 60,
+                  offset: const Offset(0, 16),
+                ),
+                const BoxShadow(
+                  color: AppColors.shadow,
+                  blurRadius: 40,
+                  offset: Offset(0, 8),
+                ),
+              ],
+            ),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final isNarrow = constraints.maxWidth < 760;
+                final details = _contactDetails(context);
+                final form = _contactForm(context);
+                if (isNarrow) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [details, const SizedBox(height: 32), form],
+                  );
+                }
+                return Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [details, const SizedBox(height: 24), form],
+                  children: [
+                    Expanded(flex: 5, child: details),
+                    const SizedBox(width: 40),
+                    Expanded(flex: 6, child: form),
+                  ],
                 );
-              }
-              return Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(flex: 5, child: details),
-                  const SizedBox(width: 26),
-                  Expanded(flex: 5, child: form),
-                ],
-              );
-            },
+              },
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
 
-  Widget contactDetails() {
-    final lightBody = AppTextStyles.body.copyWith(color: AppColors.surface);
+  Widget _contactDetails(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          AppStrings.sectionContact,
-          style: AppTextStyles.sectionTitle.copyWith(color: AppColors.surface),
+        // ── Email ───────────────────────────────────────────
+        _ContactRow(
+          icon: Icons.mail_outline_rounded,
+          label: widget.contact.email,
+          color: AppColors.primary,
+          onTap: () => AppLauncher.sendEmail(
+            to: widget.contact.email,
+            subject: 'Hello from your portfolio',
+            body: '',
+          ),
         ),
-        const SizedBox(height: 8),
-        Text(
-          AppStrings.contactLead,
-          style: AppTextStyles.body.copyWith(color: AppColors.surface),
+        const SizedBox(height: 14),
+        // ── Phone ───────────────────────────────────────────
+        _ContactRow(
+          icon: Icons.phone_outlined,
+          label: widget.contact.phone,
+          color: AppColors.accent,
+          onTap: () => AppLauncher.call(widget.contact.phone),
         ),
-        const SizedBox(height: 18),
-        Text(
-          widget.contact.email,
-          style: AppTextStyles.title.copyWith(color: AppColors.surface),
+        const SizedBox(height: 14),
+        // ── Location ────────────────────────────────────────
+        _ContactRow(
+          icon: Icons.location_on_outlined,
+          label: widget.contact.location,
+          color: AppColors.success,
         ),
-        const SizedBox(height: 8),
-        Text(widget.contact.phone, style: lightBody),
-        Text(widget.contact.location, style: lightBody),
-        const SizedBox(height: 16),
+        const SizedBox(height: 24),
+        // ── Action buttons ──────────────────────────────────
         Wrap(
           spacing: 10,
           runSpacing: 10,
@@ -116,44 +143,105 @@ class _ContactSectionState extends State<ContactSection> {
             ),
             CustomButton(
               label: AppStrings.whatsapp,
-              icon: Icons.chat_outlined,
+              icon: Icons.chat_bubble_outline_rounded,
               outlined: true,
-              light: true,
               onPressed: () => AppLauncher.whatsapp(widget.contact.phone),
             ),
           ],
         ),
-        const SizedBox(height: 18),
+        const SizedBox(height: 24),
+        // ── Social ──────────────────────────────────────────
         SocialBar(links: widget.contact.socialLinks),
       ],
     );
   }
 
-  Widget contactForm() {
+  Widget _contactForm(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CustomTextField(controller: nameController, hint: AppStrings.nameHint),
-        const SizedBox(height: 12),
-        CustomTextField(
-          controller: emailController,
-          hint: AppStrings.emailHint,
+        Text(
+          'Send a message',
+          style: AppTextStyles.title.copyWith(fontSize: 17),
         ),
+        const SizedBox(height: 20),
+        CustomTextField(controller: _name, hint: AppStrings.nameHint),
+        const SizedBox(height: 12),
+        CustomTextField(controller: _email, hint: AppStrings.emailHint),
         const SizedBox(height: 12),
         CustomTextField(
-          controller: messageController,
+          controller: _message,
           hint: AppStrings.messageHint,
           maxLines: 5,
         ),
-        const SizedBox(height: 14),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: CustomButton(
-            label: AppStrings.sendEmail,
-            icon: Icons.send_outlined,
-            onPressed: send,
-          ),
+        const SizedBox(height: 16),
+        CustomButton(
+          label: AppStrings.sendEmail,
+          icon: Icons.send_rounded,
+          gradient: true,
+          onPressed: _send,
         ),
       ],
+    );
+  }
+}
+
+class _ContactRow extends StatefulWidget {
+  const _ContactRow({
+    required this.icon,
+    required this.label,
+    required this.color,
+    this.onTap,
+  });
+
+  final IconData icon;
+  final String label;
+  final Color color;
+  final VoidCallback? onTap;
+
+  @override
+  State<_ContactRow> createState() => _ContactRowState();
+}
+
+class _ContactRowState extends State<_ContactRow> {
+  bool _hovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: widget.onTap != null
+          ? SystemMouseCursors.click
+          : SystemMouseCursors.basic,
+      onEnter: (_) => setState(() => _hovered = true),
+      onExit: (_) => setState(() => _hovered = false),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: Row(
+          children: [
+            Container(
+              width: 36,
+              height: 36,
+              decoration: BoxDecoration(
+                color: widget.color.withValues(alpha: 0.12),
+                borderRadius: BorderRadius.circular(9),
+              ),
+              child: Icon(widget.icon, color: widget.color, size: 17),
+            ),
+            const SizedBox(width: 12),
+            Flexible(
+              child: Text(
+                widget.label,
+                style: AppTextStyles.bodySmall.copyWith(
+                  color: _hovered && widget.onTap != null
+                      ? widget.color
+                      : AppColors.ink,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

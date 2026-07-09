@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'app_colors.dart';
 
@@ -7,54 +7,119 @@ class AppTextStyles {
   const AppTextStyles._();
 
   static TextTheme get textTheme => TextTheme(
-    displayLarge: hero,
+    displayLarge: display,
     headlineMedium: sectionTitle,
     titleLarge: title,
     titleMedium: subtitle,
     bodyLarge: body,
     bodyMedium: bodySmall,
+    labelSmall: caption,
   );
 
-  static TextStyle get hero => TextStyle(
+  // ── Display (hero name) ────────────────────────────────────
+  static TextStyle get display => GoogleFonts.inter(
     color: AppColors.ink,
-    fontSize: 54.sp.clamp(34, 64),
+    fontSize: 72,
+    fontWeight: FontWeight.w800,
+    height: 1.02,
+    letterSpacing: -2.0,
+  );
+
+  // ── Hero tag line ──────────────────────────────────────────
+  static TextStyle get hero => GoogleFonts.inter(
+    color: AppColors.ink,
+    fontSize: 54,
     fontWeight: FontWeight.w800,
     height: 1.04,
+    letterSpacing: -1.5,
   );
 
-  static TextStyle get sectionTitle => TextStyle(
+  // ── Section titles (H1) ───────────────────────────────────
+  static TextStyle get sectionTitle => GoogleFonts.inter(
     color: AppColors.ink,
-    fontSize: 30.sp.clamp(24, 36),
-    fontWeight: FontWeight.w800,
-  );
-
-  static TextStyle get title => TextStyle(
-    color: AppColors.ink,
-    fontSize: 22.sp.clamp(18, 26),
+    fontSize: 40,
     fontWeight: FontWeight.w700,
+    height: 1.15,
+    letterSpacing: -0.5,
   );
 
-  static TextStyle get subtitle => TextStyle(
+  // ── Card titles (H2) ──────────────────────────────────────
+  static TextStyle get title => GoogleFonts.inter(
+    color: AppColors.ink,
+    fontSize: 20,
+    fontWeight: FontWeight.w700,
+    height: 1.3,
+  );
+
+  // ── Section badge / label pill ────────────────────────────
+  static TextStyle get badge => GoogleFonts.inter(
+    color: AppColors.accent,
+    fontSize: 11,
+    fontWeight: FontWeight.w700,
+    letterSpacing: 2.0,
+  );
+
+  // ── Subtitle / company / meta ─────────────────────────────
+  static TextStyle get subtitle => GoogleFonts.inter(
     color: AppColors.primary,
-    fontSize: 16.sp.clamp(14, 18),
-    fontWeight: FontWeight.w700,
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    height: 1.4,
   );
 
-  static TextStyle get body => TextStyle(
+  // ── Body text ─────────────────────────────────────────────
+  static TextStyle get body => GoogleFonts.inter(
     color: AppColors.muted,
-    fontSize: 16.sp.clamp(14, 18),
-    height: 1.55,
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    height: 1.7,
   );
 
-  static TextStyle get bodySmall => TextStyle(
+  // ── Body small ────────────────────────────────────────────
+  static TextStyle get bodySmall => GoogleFonts.inter(
     color: AppColors.muted,
-    fontSize: 14.sp.clamp(12, 16),
-    height: 1.45,
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    height: 1.65,
   );
 
-  static TextStyle get button => TextStyle(
-    color: AppColors.surface,
-    fontSize: 14.sp.clamp(12, 16),
-    fontWeight: FontWeight.w700,
+  // ── Caption ───────────────────────────────────────────────
+  static TextStyle get caption => GoogleFonts.inter(
+    color: AppColors.subtle,
+    fontSize: 12,
+    fontWeight: FontWeight.w500,
+    letterSpacing: 0.3,
+  );
+
+  // ── Button label ──────────────────────────────────────────
+  static TextStyle get button => GoogleFonts.inter(
+    color: AppColors.ink,
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    letterSpacing: 0.2,
+  );
+
+  // ── Nav label ─────────────────────────────────────────────
+  static TextStyle get nav => GoogleFonts.inter(
+    color: AppColors.muted,
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+  );
+
+  // ── Brand / logo text ─────────────────────────────────────
+  static TextStyle get brand => GoogleFonts.inter(
+    color: AppColors.ink,
+    fontSize: 18,
+    fontWeight: FontWeight.w800,
+    letterSpacing: -0.5,
+  );
+
+  // ── Stat value (large number) ─────────────────────────────
+  static TextStyle get statValue => GoogleFonts.inter(
+    color: AppColors.ink,
+    fontSize: 36,
+    fontWeight: FontWeight.w800,
+    height: 1.0,
+    letterSpacing: -1.0,
   );
 }
