@@ -48,8 +48,8 @@ class _MouseFollowLightingState extends State<MouseFollowLighting> {
                   shape: BoxShape.circle,
                   gradient: RadialGradient(
                     colors: [
-                      widget.color.withValues(alpha: widget.intensity),
-                      widget.color.withValues(alpha: 0.0),
+                      widget.color.withOpacity(widget.intensity),
+                      widget.color.withOpacity(0.0),
                     ],
                     stops: const [0.0, 1.0],
                   ),
