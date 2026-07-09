@@ -17,9 +17,7 @@ class SkillsSection extends StatelessWidget {
     return Container(
       // Alternate background for visual rhythm
       padding: const EdgeInsets.symmetric(horizontal: 0),
-      decoration: const BoxDecoration(
-        color: AppColors.surfaceAlt,
-      ),
+      decoration: const BoxDecoration(color: AppColors.surfaceAlt),
       child: AnimatedSection(
         delay: 100,
         child: Column(

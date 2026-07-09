@@ -32,9 +32,7 @@ class GradientPanel extends StatelessWidget {
             offset: const Offset(0, 12),
           ),
         ],
-        border: Border.all(
-          color: colors.first.withValues(alpha: 0.2),
-        ),
+        border: Border.all(color: colors.first.withValues(alpha: 0.2)),
       ),
       child: child,
     );

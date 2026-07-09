@@ -51,7 +51,10 @@ class _CustomButtonState extends State<CustomButton> {
           duration: const Duration(milliseconds: 180),
           curve: Curves.easeOut,
           transform: Matrix4.diagonal3Values(
-              _hovered ? 1.025 : 1.0, _hovered ? 1.025 : 1.0, 1.0),
+            _hovered ? 1.025 : 1.0,
+            _hovered ? 1.025 : 1.0,
+            1.0,
+          ),
           transformAlignment: Alignment.center,
           decoration: _buildDecoration(),
           padding: EdgeInsets.symmetric(horizontal: hPad, vertical: vPad),

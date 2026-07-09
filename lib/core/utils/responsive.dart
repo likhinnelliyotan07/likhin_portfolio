@@ -14,9 +14,8 @@ extension ResponsiveContext on BuildContext {
   }
 
   /// Horizontal page padding — mobile-first, 8-pt system
-  EdgeInsets get pagePadding => EdgeInsets.symmetric(
-    horizontal: isMobile ? 24 : (isTablet ? 48 : 64),
-  );
+  EdgeInsets get pagePadding =>
+      EdgeInsets.symmetric(horizontal: isMobile ? 24 : (isTablet ? 48 : 64));
 
   /// Section vertical rhythm
   double get sectionSpacing => isMobile ? 80 : 120;

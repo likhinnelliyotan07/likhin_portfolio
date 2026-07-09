@@ -60,7 +60,11 @@ class _ExperienceCardState extends State<ExperienceCard> {
               duration: const Duration(milliseconds: 200),
               margin: EdgeInsets.only(bottom: widget.isLast ? 0 : 16),
               padding: const EdgeInsets.all(24),
-              transform: Matrix4.translationValues(0.0, _hovered ? -3.0 : 0.0, 0.0),
+              transform: Matrix4.translationValues(
+                0.0,
+                _hovered ? -3.0 : 0.0,
+                0.0,
+              ),
               transformAlignment: Alignment.center,
               decoration: BoxDecoration(
                 color: AppColors.surface,

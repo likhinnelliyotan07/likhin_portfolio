@@ -39,7 +39,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 BoxShadow(
                   color: AppColors.primary.withValues(alpha: 0.15),
                   blurRadius: 12,
-                )
+                ),
               ]
             : [],
       ),

@@ -21,23 +21,19 @@ class StatsStrip extends StatelessWidget {
       runSpacing: 24,
       children: [
         for (int i = 0; i < stats.length; i++) ...[
-          _StatItem(
-            value: stats[i].$1,
-            suffix: stats[i].$2,
-            label: stats[i].$3,
-          )
-          .animate(delay: Duration(milliseconds: 100 * i))
-          .fade(duration: 600.ms, curve: Curves.easeOut)
-          .slideY(begin: 0.2, end: 0, curve: Curves.easeOutCubic),
+          _StatItem(value: stats[i].$1, suffix: stats[i].$2, label: stats[i].$3)
+              .animate(delay: Duration(milliseconds: 100 * i))
+              .fade(duration: 600.ms, curve: Curves.easeOut)
+              .slideY(begin: 0.2, end: 0, curve: Curves.easeOutCubic),
           if (i < stats.length - 1)
             Container(
-              width: 1,
-              height: 40,
-              color: AppColors.border,
-              margin: const EdgeInsets.symmetric(horizontal: 0),
-            )
-            .animate(delay: Duration(milliseconds: 100 * i + 50))
-            .fade(duration: 600.ms),
+                  width: 1,
+                  height: 40,
+                  color: AppColors.border,
+                  margin: const EdgeInsets.symmetric(horizontal: 0),
+                )
+                .animate(delay: Duration(milliseconds: 100 * i + 50))
+                .fade(duration: 600.ms),
         ],
       ],
     );
@@ -77,10 +73,7 @@ class _StatItem extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 4),
-        Text(
-          label,
-          style: AppTextStyles.caption,
-        ),
+        Text(label, style: AppTextStyles.caption),
       ],
     );
   }

@@ -34,10 +34,10 @@ class _ContactSectionState extends State<ContactSection> {
   }
 
   Future<void> _send() => AppLauncher.sendEmail(
-        to: widget.contact.email,
-        subject: 'Portfolio enquiry from ${_name.text}',
-        body: 'Name: ${_name.text}\nEmail: ${_email.text}\n\n${_message.text}',
-      );
+    to: widget.contact.email,
+    subject: 'Portfolio enquiry from ${_name.text}',
+    body: 'Name: ${_name.text}\nEmail: ${_email.text}\n\n${_message.text}',
+  );
 
   @override
   Widget build(BuildContext context) {

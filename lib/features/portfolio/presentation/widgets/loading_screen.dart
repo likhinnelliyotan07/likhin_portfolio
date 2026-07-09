@@ -139,10 +139,7 @@ class _LoadingScreenState extends State<LoadingScreen>
               const SizedBox(height: 8),
               FadeTransition(
                 opacity: _fade,
-                child: Text(
-                  'Loading portfolio…',
-                  style: AppTextStyles.caption,
-                ),
+                child: Text('Loading portfolio…', style: AppTextStyles.caption),
               ),
             ],
           ),

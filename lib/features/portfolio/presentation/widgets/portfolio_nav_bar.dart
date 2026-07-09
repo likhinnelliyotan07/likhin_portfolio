@@ -92,10 +92,7 @@ class _PortfolioNavBarState extends State<PortfolioNavBar> {
                         ),
                       ),
                       const SizedBox(width: 10),
-                      Text(
-                        'Likhin',
-                        style: AppTextStyles.brand,
-                      ),
+                      Text('Likhin', style: AppTextStyles.brand),
                     ],
                   ),
                 ),
@@ -138,12 +135,30 @@ class _PortfolioNavBarState extends State<PortfolioNavBar> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
       builder: (_) => _MobileMenu(
-        onAbout: () { Navigator.pop(context); widget.onAbout(); },
-        onSkills: () { Navigator.pop(context); widget.onSkills(); },
-        onExperience: () { Navigator.pop(context); widget.onExperience(); },
-        onProjects: () { Navigator.pop(context); widget.onProjects(); },
-        onBlog: () { Navigator.pop(context); widget.onBlog(); },
-        onContact: () { Navigator.pop(context); widget.onContact(); },
+        onAbout: () {
+          Navigator.pop(context);
+          widget.onAbout();
+        },
+        onSkills: () {
+          Navigator.pop(context);
+          widget.onSkills();
+        },
+        onExperience: () {
+          Navigator.pop(context);
+          widget.onExperience();
+        },
+        onProjects: () {
+          Navigator.pop(context);
+          widget.onProjects();
+        },
+        onBlog: () {
+          Navigator.pop(context);
+          widget.onBlog();
+        },
+        onContact: () {
+          Navigator.pop(context);
+          widget.onContact();
+        },
       ),
     ).whenComplete(() {
       if (mounted) setState(() => _drawerOpen = false);
@@ -179,9 +194,7 @@ class _DesktopNav extends StatelessWidget {
     ];
     return Row(
       children: [
-        ...items.map(
-          (item) => _NavItem(label: item.$1, onTap: item.$2),
-        ),
+        ...items.map((item) => _NavItem(label: item.$1, onTap: item.$2)),
         const SizedBox(width: 16),
         // ── Hire me pill ─────────────────────────────────────
         _HireMeButton(onPressed: onContact),
@@ -248,13 +261,13 @@ class _HireMeButtonState extends State<_HireMeButton> {
           duration: const Duration(milliseconds: 180),
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 9),
           decoration: BoxDecoration(
-            gradient: const LinearGradient(
-              colors: AppColors.primaryGradient,
-            ),
+            gradient: const LinearGradient(colors: AppColors.primaryGradient),
             borderRadius: BorderRadius.circular(100),
             boxShadow: [
               BoxShadow(
-                color: AppColors.primary.withValues(alpha: _hovered ? 0.5 : 0.25),
+                color: AppColors.primary.withValues(
+                  alpha: _hovered ? 0.5 : 0.25,
+                ),
                 blurRadius: _hovered ? 24 : 14,
                 offset: const Offset(0, 4),
               ),

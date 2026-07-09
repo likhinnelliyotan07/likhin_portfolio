@@ -41,7 +41,11 @@ class _FloatingCtaState extends State<FloatingCta>
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 180),
               curve: Curves.easeOut,
-              transform: Matrix4.translationValues(0.0, _hovered ? -3.0 : 0.0, 0.0),
+              transform: Matrix4.translationValues(
+                0.0,
+                _hovered ? -3.0 : 0.0,
+                0.0,
+              ),
               transformAlignment: Alignment.center,
               padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 14),
               decoration: BoxDecoration(
@@ -53,7 +57,9 @@ class _FloatingCtaState extends State<FloatingCta>
                 borderRadius: BorderRadius.circular(100),
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.primary.withValues(alpha: _hovered ? 0.55 : 0.35),
+                    color: AppColors.primary.withValues(
+                      alpha: _hovered ? 0.55 : 0.35,
+                    ),
                     blurRadius: _hovered ? 32 : 20,
                     offset: const Offset(0, 8),
                   ),
@@ -68,10 +74,7 @@ class _FloatingCtaState extends State<FloatingCta>
                     size: 18,
                   ),
                   const SizedBox(width: 8),
-                  Text(
-                    "Let's talk",
-                    style: AppTextStyles.button,
-                  ),
+                  Text("Let's talk", style: AppTextStyles.button),
                 ],
               ),
             ),

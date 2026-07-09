@@ -21,7 +21,8 @@ class ExperienceSection extends StatelessWidget {
           const SectionHeader(
             badge: AppStrings.badgeExperience,
             title: AppStrings.sectionExperience,
-            subtitle: 'A decade of building products that scale — from embedded systems to AI-powered mobile platforms.',
+            subtitle:
+                'A decade of building products that scale — from embedded systems to AI-powered mobile platforms.',
           ),
           const SizedBox(height: 48),
           // ── Timeline ────────────────────────────────────────
@@ -58,10 +59,7 @@ class _TimelineLine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 32,
-      child: CustomPaint(painter: _LinePainter()),
-    );
+    return SizedBox(width: 32, child: CustomPaint(painter: _LinePainter()));
   }
 }
 

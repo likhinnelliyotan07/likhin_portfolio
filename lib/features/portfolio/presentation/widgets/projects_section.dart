@@ -25,7 +25,8 @@ class ProjectsSection extends StatelessWidget {
           const SectionHeader(
             badge: AppStrings.badgeProjects,
             title: AppStrings.sectionProjects,
-            subtitle: 'Production-grade apps shipped across hospitality, food delivery, AI, healthcare, and commerce.',
+            subtitle:
+                'Production-grade apps shipped across hospitality, food delivery, AI, healthcare, and commerce.',
           ),
           const SizedBox(height: 48),
           // ── Featured projects (2-col large cards) ────────────
@@ -39,11 +40,13 @@ class ProjectsSection extends StatelessWidget {
                 spacing: 20,
                 runSpacing: 20,
                 children: featured
-                    .map((p) => ProjectCard(
-                          project: p,
-                          width: cardWidth,
-                          featured: true,
-                        ))
+                    .map(
+                      (p) => ProjectCard(
+                        project: p,
+                        width: cardWidth,
+                        featured: true,
+                      ),
+                    )
                     .toList(),
               );
             },
@@ -63,12 +66,7 @@ class ProjectsSection extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 16),
-                Expanded(
-                  child: Container(
-                    height: 1,
-                    color: AppColors.border,
-                  ),
-                ),
+                Expanded(child: Container(height: 1, color: AppColors.border)),
               ],
             ),
             const SizedBox(height: 24),
@@ -85,11 +83,13 @@ class ProjectsSection extends StatelessWidget {
                   spacing: 16,
                   runSpacing: 16,
                   children: others
-                      .map((p) => ProjectCard(
-                            project: p,
-                            width: cardWidth,
-                            featured: false,
-                          ))
+                      .map(
+                        (p) => ProjectCard(
+                          project: p,
+                          width: cardWidth,
+                          featured: false,
+                        ),
+                      )
                       .toList(),
                 );
               },

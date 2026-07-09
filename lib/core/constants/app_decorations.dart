@@ -29,12 +29,7 @@ class AppDecorations {
           blurRadius: 40,
           offset: const Offset(0, 8),
         ),
-        if (glow)
-          BoxShadow(
-            color: glowColor,
-            blurRadius: 32,
-            spreadRadius: -4,
-          ),
+        if (glow) BoxShadow(color: glowColor, blurRadius: 32, spreadRadius: -4),
       ],
     );
   }
@@ -48,7 +43,9 @@ class AppDecorations {
       color: AppColors.surfaceGlass,
       borderRadius: BorderRadius.circular(radius),
       border: Border.all(
-        color: glowBorder ? AppColors.primary.withValues(alpha: 0.3) : AppColors.border,
+        color: glowBorder
+            ? AppColors.primary.withValues(alpha: 0.3)
+            : AppColors.border,
       ),
       boxShadow: [
         BoxShadow(

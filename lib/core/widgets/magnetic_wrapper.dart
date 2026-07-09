@@ -4,11 +4,7 @@ class MagneticWrapper extends StatefulWidget {
   final Widget child;
   final double intensity; // How much it moves (0 to 1)
 
-  const MagneticWrapper({
-    super.key,
-    required this.child,
-    this.intensity = 0.2,
-  });
+  const MagneticWrapper({super.key, required this.child, this.intensity = 0.2});
 
   @override
   State<MagneticWrapper> createState() => _MagneticWrapperState();
@@ -52,7 +48,11 @@ class _MagneticWrapperState extends State<MagneticWrapper> {
         key: _key,
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeOutBack,
-        transform: Matrix4.translationValues(_translation.dx, _translation.dy, 0),
+        transform: Matrix4.translationValues(
+          _translation.dx,
+          _translation.dy,
+          0,
+        ),
         child: widget.child,
       ),
     );

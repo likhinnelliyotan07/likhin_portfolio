@@ -77,11 +77,7 @@ class _InfoListCardState extends State<InfoListCard> {
                       color: widget.iconColor.withValues(alpha: 0.12),
                       borderRadius: BorderRadius.circular(9),
                     ),
-                    child: Icon(
-                      widget.icon,
-                      color: widget.iconColor,
-                      size: 18,
-                    ),
+                    child: Icon(widget.icon, color: widget.iconColor, size: 18),
                   ),
                   const SizedBox(width: 12),
                 ],

@@ -29,9 +29,7 @@ class HeroSection extends StatelessWidget {
       children: [
         // ── Dark hero with radial glow ───────────────────────
         Container(
-          constraints: BoxConstraints(
-            minHeight: context.isMobile ? 0 : 600,
-          ),
+          constraints: BoxConstraints(minHeight: context.isMobile ? 0 : 600),
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topLeft,
@@ -215,10 +213,7 @@ class _HeroContent extends StatelessWidget {
             borderRadius: BorderRadius.circular(100),
             border: Border.all(color: AppColors.accent.withValues(alpha: 0.3)),
           ),
-          child: Text(
-            AppStrings.heroTag,
-            style: AppTextStyles.badge,
-          ),
+          child: Text(AppStrings.heroTag, style: AppTextStyles.badge),
         ),
         const SizedBox(height: 24),
         // ── Name ──────────────────────────────────────────
@@ -246,10 +241,7 @@ class _HeroContent extends StatelessWidget {
         // ── Intro ─────────────────────────────────────────
         ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 560),
-          child: Text(
-            AppStrings.intro,
-            style: AppTextStyles.body,
-          ),
+          child: Text(AppStrings.intro, style: AppTextStyles.body),
         ),
         const SizedBox(height: 32),
         // ── CTAs ──────────────────────────────────────────

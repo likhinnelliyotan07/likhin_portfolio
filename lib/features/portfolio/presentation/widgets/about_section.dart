@@ -39,15 +39,9 @@ class AboutSection extends StatelessWidget {
               return Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                    flex: 5,
-                    child: _BioText(summary: profile.summary),
-                  ),
+                  Expanded(flex: 5, child: _BioText(summary: profile.summary)),
                   const SizedBox(width: 48),
-                  Expanded(
-                    flex: 4,
-                    child: _HighlightCards(),
-                  ),
+                  Expanded(flex: 4, child: _HighlightCards()),
                 ],
               );
             },
@@ -128,12 +122,14 @@ class _HighlightCards extends StatelessWidget {
 
     return Column(
       children: highlights
-          .map((h) => _HighlightCard(
-                icon: h.$1,
-                title: h.$2,
-                subtitle: h.$3,
-                color: h.$4,
-              ))
+          .map(
+            (h) => _HighlightCard(
+              icon: h.$1,
+              title: h.$2,
+              subtitle: h.$3,
+              color: h.$4,
+            ),
+          )
           .toList(),
     );
   }

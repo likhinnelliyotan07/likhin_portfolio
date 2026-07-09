@@ -40,7 +40,7 @@ class _HoverCardState extends State<HoverCard> {
         duration: const Duration(milliseconds: 200),
         curve: Curves.easeOut,
         transform: Matrix4.identity()
-          ..translateByDouble(0.0, _hovered ? -4.0 : 0.0, 0.0,0.0),
+          ..translateByDouble(0.0, _hovered ? -4.0 : 0.0, 0.0, 0.0),
         transformAlignment: Alignment.center,
         padding: widget.padding,
         decoration: BoxDecoration(

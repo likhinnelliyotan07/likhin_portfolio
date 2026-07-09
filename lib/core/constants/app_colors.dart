@@ -39,15 +39,9 @@ class AppColors {
     Color(0xFF0A0A0F),
   ];
 
-  static const primaryGradient = [
-    Color(0xFF6C63FF),
-    Color(0xFF9B8FFF),
-  ];
+  static const primaryGradient = [Color(0xFF6C63FF), Color(0xFF9B8FFF)];
 
-  static const accentGradient = [
-    Color(0xFFC9A96E),
-    Color(0xFFE8C98A),
-  ];
+  static const accentGradient = [Color(0xFFC9A96E), Color(0xFFE8C98A)];
 
   static const contactGradient = [
     Color(0xFF6C63FF),

@@ -43,8 +43,8 @@ class _ProjectCardState extends State<ProjectCard> {
                   ProjectCaseStudyPage(project: widget.project),
               transitionsBuilder:
                   (context, animation, secondaryAnimation, child) {
-                return FadeTransition(opacity: animation, child: child);
-              },
+                    return FadeTransition(opacity: animation, child: child);
+                  },
               transitionDuration: const Duration(milliseconds: 500),
             ),
           );
@@ -92,7 +92,9 @@ class _ProjectCardState extends State<ProjectCard> {
                               width: widget.featured ? 48 : 40,
                               height: widget.featured ? 48 : 40,
                               decoration: BoxDecoration(
-                                color: AppColors.primary.withValues(alpha: 0.12),
+                                color: AppColors.primary.withValues(
+                                  alpha: 0.12,
+                                ),
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               child: Icon(

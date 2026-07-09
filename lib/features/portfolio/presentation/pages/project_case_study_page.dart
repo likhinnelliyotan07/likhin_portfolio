@@ -38,30 +38,54 @@ class _ProjectCaseStudyPageState extends State<ProjectCaseStudyPage> {
               child: ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 1000),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 48),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 48,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildHeaderSection(),
-                      const SizedBox(height: 48),
-                      _buildSectionTitle('Overview & Business Problem', Icons.lightbulb_outline),
-                      _buildParagraph(widget.project.businessProblem),
-                      const SizedBox(height: 48),
-                      _buildSectionTitle('Key Challenges', Icons.warning_amber_rounded),
-                      _buildBulletList(widget.project.challenges),
-                      const SizedBox(height: 48),
-                      _buildArchitectureSection(),
-                      const SizedBox(height: 48),
-                      _buildSectionTitle('Performance & Optimization', Icons.speed_rounded),
-                      _buildBulletList(widget.project.performanceOptimizations),
-                      const SizedBox(height: 48),
-                      _buildSectionTitle('Testing Strategy', Icons.science_outlined),
-                      _buildParagraph(widget.project.testingStrategy),
-                      const SizedBox(height: 48),
-                      _buildSectionTitle('Business Impact', Icons.trending_up_rounded),
-                      _buildBulletList(widget.project.businessImpact),
-                      const SizedBox(height: 80),
-                    ].animate(interval: 50.ms).fade(duration: 600.ms).slideY(begin: 0.05, curve: Curves.easeOutCubic),
+                    children:
+                        [
+                              _buildHeaderSection(),
+                              const SizedBox(height: 48),
+                              _buildSectionTitle(
+                                'Overview & Business Problem',
+                                Icons.lightbulb_outline,
+                              ),
+                              _buildParagraph(widget.project.businessProblem),
+                              const SizedBox(height: 48),
+                              _buildSectionTitle(
+                                'Key Challenges',
+                                Icons.warning_amber_rounded,
+                              ),
+                              _buildBulletList(widget.project.challenges),
+                              const SizedBox(height: 48),
+                              _buildArchitectureSection(),
+                              const SizedBox(height: 48),
+                              _buildSectionTitle(
+                                'Performance & Optimization',
+                                Icons.speed_rounded,
+                              ),
+                              _buildBulletList(
+                                widget.project.performanceOptimizations,
+                              ),
+                              const SizedBox(height: 48),
+                              _buildSectionTitle(
+                                'Testing Strategy',
+                                Icons.science_outlined,
+                              ),
+                              _buildParagraph(widget.project.testingStrategy),
+                              const SizedBox(height: 48),
+                              _buildSectionTitle(
+                                'Business Impact',
+                                Icons.trending_up_rounded,
+                              ),
+                              _buildBulletList(widget.project.businessImpact),
+                              const SizedBox(height: 80),
+                            ]
+                            .animate(interval: 50.ms)
+                            .fade(duration: 600.ms)
+                            .slideY(begin: 0.05, curve: Curves.easeOutCubic),
                   ),
                 ),
               ),
@@ -164,7 +188,9 @@ class _ProjectCaseStudyPageState extends State<ProjectCaseStudyPage> {
         Wrap(
           spacing: 8,
           runSpacing: 8,
-          children: widget.project.techStack.map((t) => SkillChip(label: t)).toList(),
+          children: widget.project.techStack
+              .map((t) => SkillChip(label: t))
+              .toList(),
         ),
         if (widget.project.links.isNotEmpty) ...[
           const SizedBox(height: 32),
@@ -180,7 +206,10 @@ class _ProjectCaseStudyPageState extends State<ProjectCaseStudyPage> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primary,
                       foregroundColor: AppColors.ink,
-                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 24,
+                        vertical: 16,
+                      ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -232,7 +261,11 @@ class _ProjectCaseStudyPageState extends State<ProjectCaseStudyPage> {
                 children: [
                   const Padding(
                     padding: EdgeInsets.only(top: 8, right: 12),
-                    child: Icon(Icons.circle, size: 8, color: AppColors.primary),
+                    child: Icon(
+                      Icons.circle,
+                      size: 8,
+                      color: AppColors.primary,
+                    ),
                   ),
                   Expanded(
                     child: Text(
@@ -261,21 +294,49 @@ class _ProjectCaseStudyPageState extends State<ProjectCaseStudyPage> {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              const Icon(Icons.architecture_rounded, color: AppColors.primary, size: 28),
-              const SizedBox(width: 12),
-              Text('System Architecture', style: AppTextStyles.title),
-            ],
-          ),
-          const SizedBox(height: 32),
-          _buildArchRow('State Management', widget.project.stateManagement, Icons.account_tree_rounded),
-          _buildArchRow('Backend', widget.project.backend, Icons.dns_rounded),
-          _buildArchRow('Database', widget.project.database, Icons.storage_rounded),
-          _buildArchRow('Security', widget.project.security, Icons.security_rounded),
-          _buildArchRow('Scalability', widget.project.scalability, Icons.layers_rounded),
-        ].animate(interval: 100.ms).fade(duration: 500.ms).slideX(begin: -0.05, curve: Curves.easeOutCubic),
+        children:
+            [
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.architecture_rounded,
+                        color: AppColors.primary,
+                        size: 28,
+                      ),
+                      const SizedBox(width: 12),
+                      Text('System Architecture', style: AppTextStyles.title),
+                    ],
+                  ),
+                  const SizedBox(height: 32),
+                  _buildArchRow(
+                    'State Management',
+                    widget.project.stateManagement,
+                    Icons.account_tree_rounded,
+                  ),
+                  _buildArchRow(
+                    'Backend',
+                    widget.project.backend,
+                    Icons.dns_rounded,
+                  ),
+                  _buildArchRow(
+                    'Database',
+                    widget.project.database,
+                    Icons.storage_rounded,
+                  ),
+                  _buildArchRow(
+                    'Security',
+                    widget.project.security,
+                    Icons.security_rounded,
+                  ),
+                  _buildArchRow(
+                    'Scalability',
+                    widget.project.scalability,
+                    Icons.layers_rounded,
+                  ),
+                ]
+                .animate(interval: 100.ms)
+                .fade(duration: 500.ms)
+                .slideX(begin: -0.05, curve: Curves.easeOutCubic),
       ),
     );
   }

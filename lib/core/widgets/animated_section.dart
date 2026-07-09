@@ -3,7 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 /// Scroll-aware reveal animation.
 /// Fades in and slides up when it first enters the viewport.
-/// Since Flutter's Slivers and ListViews build children lazily, 
+/// Since Flutter's Slivers and ListViews build children lazily,
 /// simply attaching .animate() handles scroll-reveals perfectly.
 class RevealSection extends StatelessWidget {
   const RevealSection({
@@ -19,7 +19,8 @@ class RevealSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return child.animate(delay: delay)
+    return child
+        .animate(delay: delay)
         .fade(duration: 650.ms, curve: Curves.easeOutCubic)
         .slideY(
           begin: slideOffset / 100,
@@ -39,7 +40,8 @@ class AnimatedSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return child.animate(delay: Duration(milliseconds: delay))
+    return child
+        .animate(delay: Duration(milliseconds: delay))
         .fade(duration: 700.ms, curve: Curves.easeOutCubic)
         .slideY(
           begin: 0.1,
