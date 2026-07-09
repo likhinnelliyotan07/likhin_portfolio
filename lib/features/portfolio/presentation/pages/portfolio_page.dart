@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/widgets/floating_particles.dart';
+import '../../../../core/widgets/mouse_follow_lighting.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/utils/responsive.dart';
@@ -89,61 +91,67 @@ class _PortfolioPageState extends State<PortfolioPage> {
         builder: (context, snapshot) {
           if (!snapshot.hasData) return const LoadingScreen();
           final profile = snapshot.data!;
-          return Stack(
-            children: [
-              // ── Scrollable content ─────────────────────────
-              CustomScrollView(
-                controller: _scrollController,
-                physics: const BouncingScrollPhysics(),
-                slivers: [
-                  // Sticky nav
-                  SliverPersistentHeader(
-                    pinned: true,
-                    delegate: _NavBarDelegate(
-                      scrolled: _navScrolled,
-                      onAbout: () => _scrollTo(_aboutKey),
-                      onSkills: () => _scrollTo(_skillsKey),
-                      onExperience: () => _scrollTo(_experienceKey),
-                      onProjects: () => _scrollTo(_projectsKey),
-                      onBlog: () => _scrollTo(_blogKey),
-                      onContact: () => _scrollTo(_contactKey),
-                    ),
-                  ),
-                  // Hero — full bleed, no container constraint
-                  SliverToBoxAdapter(
-                    child: HeroSection(
-                      key: _heroKey,
-                      profile: profile,
-                      onProjects: () => _scrollTo(_projectsKey),
-                      onContact: () => _scrollTo(_contactKey),
-                    ),
-                  ),
-                  // Remaining sections — centered with max width
-                  _section(AboutSection(key: _aboutKey, profile: profile)),
-                  _section(SkillsSection(key: _skillsKey, groups: profile.skillGroups)),
-                  _section(ExperienceSection(key: _experienceKey, experiences: profile.experiences)),
-                  _section(ProjectsSection(key: _projectsKey, projects: profile.projects)),
-                  _section(EducationSection(
-                    key: _educationKey,
-                    education: profile.education,
-                    certifications: profile.certifications,
-                    achievements: profile.achievements,
-                  )),
-                  _section(BlogSection(key: _blogKey, blogs: profile.blogs)),
-                  _section(ContactSection(key: _contactKey, contact: profile.contactInfo)),
-                  const SliverToBoxAdapter(child: SizedBox(height: 80)),
-                ],
-              ),
-              // ── Floating CTA ───────────────────────────────
-              Positioned(
-                bottom: 32,
-                right: 32,
-                child: FloatingCta(
-                  visible: _showFloatingCta,
-                  onPressed: () => _scrollTo(_contactKey),
+          return MouseFollowLighting(
+            child: Stack(
+              children: [
+                // ── Global Background Effects ────────────────────
+                const Positioned.fill(
+                  child: FloatingParticles(particleCount: 60),
                 ),
-              ),
-            ],
+                // ── Scrollable content ─────────────────────────
+                CustomScrollView(
+                  controller: _scrollController,
+                  physics: const BouncingScrollPhysics(),
+                  slivers: [
+                    // Sticky nav
+                    SliverPersistentHeader(
+                      pinned: true,
+                      delegate: _NavBarDelegate(
+                        scrolled: _navScrolled,
+                        onAbout: () => _scrollTo(_aboutKey),
+                        onSkills: () => _scrollTo(_skillsKey),
+                        onExperience: () => _scrollTo(_experienceKey),
+                        onProjects: () => _scrollTo(_projectsKey),
+                        onBlog: () => _scrollTo(_blogKey),
+                        onContact: () => _scrollTo(_contactKey),
+                      ),
+                    ),
+                    // Hero — full bleed, no container constraint
+                    SliverToBoxAdapter(
+                      child: HeroSection(
+                        key: _heroKey,
+                        profile: profile,
+                        onProjects: () => _scrollTo(_projectsKey),
+                        onContact: () => _scrollTo(_contactKey),
+                      ),
+                    ),
+                    // Remaining sections — centered with max width
+                    _section(AboutSection(key: _aboutKey, profile: profile)),
+                    _section(SkillsSection(key: _skillsKey, groups: profile.skillGroups)),
+                    _section(ExperienceSection(key: _experienceKey, experiences: profile.experiences)),
+                    _section(ProjectsSection(key: _projectsKey, projects: profile.projects)),
+                    _section(EducationSection(
+                      key: _educationKey,
+                      education: profile.education,
+                      certifications: profile.certifications,
+                      achievements: profile.achievements,
+                    )),
+                    _section(BlogSection(key: _blogKey, blogs: profile.blogs)),
+                    _section(ContactSection(key: _contactKey, contact: profile.contactInfo)),
+                    const SliverToBoxAdapter(child: SizedBox(height: 80)),
+                  ],
+                ),
+                // ── Floating CTA ───────────────────────────────
+                Positioned(
+                  bottom: 32,
+                  right: 32,
+                  child: FloatingCta(
+                    visible: _showFloatingCta,
+                    onPressed: () => _scrollTo(_contactKey),
+                  ),
+                ),
+              ],
+            ),
           );
         },
       ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_styles.dart';
 import '../../../../core/utils/app_launcher.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import '../../domain/entities/project.dart';
 import '../widgets/skill_chip.dart';
 
@@ -60,7 +61,7 @@ class _ProjectCaseStudyPageState extends State<ProjectCaseStudyPage> {
                       _buildSectionTitle('Business Impact', Icons.trending_up_rounded),
                       _buildBulletList(widget.project.businessImpact),
                       const SizedBox(height: 80),
-                    ],
+                    ].animate(interval: 50.ms).fade(duration: 600.ms).slideY(begin: 0.05, curve: Curves.easeOutCubic),
                   ),
                 ),
               ),
@@ -274,7 +275,7 @@ class _ProjectCaseStudyPageState extends State<ProjectCaseStudyPage> {
           _buildArchRow('Database', widget.project.database, Icons.storage_rounded),
           _buildArchRow('Security', widget.project.security, Icons.security_rounded),
           _buildArchRow('Scalability', widget.project.scalability, Icons.layers_rounded),
-        ],
+        ].animate(interval: 100.ms).fade(duration: 500.ms).slideX(begin: -0.05, curve: Curves.easeOutCubic),
       ),
     );
   }

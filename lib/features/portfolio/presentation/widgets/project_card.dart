@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_styles.dart';
 import '../../../../core/utils/app_launcher.dart';
+import '../../../../core/widgets/glass_card.dart';
+import '../../../../core/widgets/magnetic_wrapper.dart';
 import '../../domain/entities/project.dart';
 import '../pages/project_case_study_page.dart';
 import 'skill_chip.dart';
@@ -51,33 +53,8 @@ class _ProjectCardState extends State<ProjectCard> {
           duration: const Duration(milliseconds: 200),
           width: widget.width,
           transform: Matrix4.translationValues(0.0, _hovered ? -4.0 : 0.0, 0.0),
-          transformAlignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: AppColors.surface,
-            borderRadius: BorderRadius.circular(22),
-            border: Border.all(
-              color: _hovered
-                  ? AppColors.primary.withValues(alpha: 0.4)
-                  : AppColors.border,
-            ),
-            boxShadow: _hovered
-                ? [
-                    BoxShadow(
-                      color: AppColors.primary.withValues(alpha: 0.12),
-                      blurRadius: 36,
-                      offset: const Offset(0, 12),
-                    ),
-                  ]
-                : [
-                    const BoxShadow(
-                      color: AppColors.shadow,
-                      blurRadius: 20,
-                      offset: Offset(0, 4),
-                    ),
-                  ],
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(22),
+          child: GlassCard(
+            isHovered: _hovered,
             child: Stack(
               children: [
                 Positioned.fill(
@@ -167,25 +144,40 @@ class _ProjectCardState extends State<ProjectCard> {
                           ),
                           const SizedBox(height: 16),
                           // View Case Study Button
-                          AnimatedOpacity(
-                            duration: const Duration(milliseconds: 200),
-                            opacity: _hovered ? 1.0 : 0.7,
-                            child: Row(
-                              children: [
-                                Text(
-                                  'View Case Study',
-                                  style: AppTextStyles.caption.copyWith(
-                                    color: AppColors.primary,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                          MagneticWrapper(
+                            child: AnimatedOpacity(
+                              duration: const Duration(milliseconds: 200),
+                              opacity: _hovered ? 1.0 : 0.7,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 8,
                                 ),
-                                const SizedBox(width: 4),
-                                const Icon(
-                                  Icons.arrow_forward_rounded,
-                                  color: AppColors.primary,
-                                  size: 14,
+                                decoration: BoxDecoration(
+                                  color: _hovered
+                                      ? AppColors.primary.withValues(alpha: 0.1)
+                                      : Colors.transparent,
+                                  borderRadius: BorderRadius.circular(100),
                                 ),
-                              ],
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      'View Case Study',
+                                      style: AppTextStyles.caption.copyWith(
+                                        color: AppColors.primary,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 6),
+                                    const Icon(
+                                      Icons.arrow_forward_rounded,
+                                      color: AppColors.primary,
+                                      size: 14,
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
                         ],
